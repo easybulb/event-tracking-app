@@ -1,17 +1,9 @@
-# Ignore virtual environment
 venv/
-
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-
-# Ignore Django migrations
 */migrations/*
-
-# Ignore database
 db.sqlite3
-
-# Ignore IDE or editor config files
 .vscode/
+env.py
