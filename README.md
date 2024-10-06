@@ -1,0 +1,1 @@
+# Django Event Tracking App
