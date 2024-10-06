@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Event Tracking{% endblock %}</title>
+    <!-- CSS or other links go here -->
+</head>
+<body>
+    <header>
+        <h1>Event Tracking App</h1>
+        <!-- Navigation or header content -->
+    </header>
+
+    <div class="content">
+        {% block content %}  <!-- This block will be filled by other templates -->
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>Footer content here</p>
+    </footer>
+</body>
+</html>
