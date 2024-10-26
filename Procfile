@@ -1,1 +1,1 @@
-web: gunicorn event_tracking.wsgi
+web: gunicorn showsecho.wsgi
