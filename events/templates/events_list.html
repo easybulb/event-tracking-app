@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Event Listings</title>
+{% extends "base.html" %}
+
+{% block content %}
     <style>
         .details { display: none; }
     </style>
@@ -17,8 +16,7 @@
             }
         }
     </script>
-</head>
-<body>
+
     <h1>Upcoming Events</h1>
 
     <form method="get" action="{% url 'fetch_events' %}">
@@ -55,5 +53,4 @@
     {% if next_page %}
         <a href="?city={{ city }}&page={{ next_page }}">Next Page</a>
     {% endif %}
-</body>
-</html>
+{% endblock %}
