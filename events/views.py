@@ -9,7 +9,7 @@ def home(request):
 def fetch_events(request):
     city = request.GET.get('city', 'Manchester')
     venue = request.GET.get('venue', '')
-    sorting = request.GET.get('sorting', 'popularity')  # Default sorting is by popularity
+    sorting = request.GET.get('sorting', 'popularity')
     page = request.GET.get('page', 1)
     current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     sort_param = "relevance,desc" if sorting == "popularity" else "date,asc"
@@ -21,7 +21,7 @@ def fetch_events(request):
         f"&apikey={os.getenv('TICKETMASTER_KEY')}"
     )
     if venue:
-        url += f"&keyword={venue}"  # Adds venue to search if specified
+        url += f"&keyword={venue}"
 
     response = requests.get(url)
 
@@ -30,14 +30,26 @@ def fetch_events(request):
     if response.status_code == 200:
         data = response.json().get('_embedded', {}).get('events', [])
         for event in data:
+            # Adjusted price retrieval
+            price_info = event.get('priceRanges', [{}])[0]
+            min_price = price_info.get('min')
+            max_price = price_info.get('max')
+            
+            # Format price based on availability
+            price = None
+            if min_price and max_price:
+                price = f"£{min_price} - £{max_price}"
+            elif min_price:
+                price = f"£{min_price}"
+
             events.append({
                 'name': event.get('name'),
                 'date': event.get('dates', {}).get('start', {}).get('localDate'),
                 'time': event.get('dates', {}).get('start', {}).get('localTime'),
                 'venue': event.get('_embedded', {}).get('venues', [{}])[0].get('name'),
-                'price': event.get('priceRanges', [{}])[0].get('min'),  # Minimum price if available
-                'image': event.get('images', [{}])[0].get('url'),  # First image if available
-                'url': event.get('url')  # Event URL
+                'price': price,  # Updated price formatting
+                'image': event.get('images', [{}])[0].get('url'),
+                'url': event.get('url')
             })
         next_page = response.json().get('page', {}).get('number') + 1 if response.json().get('page', {}).get('totalPages', 1) > int(page) else None
     else:
@@ -47,6 +59,6 @@ def fetch_events(request):
         'events': events,
         'next_page': next_page,
         'city': city,
-        'venue': venue,  # Pass the venue to the template for display
+        'venue': venue,
         'sorting': sorting
     })
