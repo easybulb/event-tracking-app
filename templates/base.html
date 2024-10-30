@@ -1,24 +1,33 @@
+
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Event Tracking{% endblock %}</title>
-    <!-- CSS or other links go here -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
-        <h1>Event Tracking App</h1>
-        <!-- Navigation or header content -->
+        <h1>ShowsEcho - Event Tracking App</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'events_list' %}">Events List</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <div class="content">
-        {% block content %}  <!-- This block will be filled by other templates -->
+    <main class="content">
+        {% block content %}
         {% endblock %}
-    </div>
+    </main>
 
     <footer>
-        <p>Footer content here</p>
+        <p>&copy; 2023 ShowsEcho. All rights reserved.</p>
     </footer>
 </body>
 </html>
