@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/events.css' %}">
+{% endblock %}
 
 {% block content %}
     <style>
@@ -17,40 +22,42 @@
         }
     </script>
 
-    <h1>Upcoming Events</h1>
+    <section id="event-section">
+        <h1 id="event-title">Upcoming Events</h1>
 
-    <form method="get" action="{% url 'fetch_events' %}">
-        <label for="city">Search by City:</label>
-        <input type="text" id="city" name="city" placeholder="Enter city name">
-        <button type="submit">Search</button>
-    </form>
+        <form method="get" action="{% url 'fetch_events' %}" id="event-search-form">
+            <label for="city" class="form-label">Search by City:</label>
+            <input type="text" id="city" name="city" placeholder="Enter city name" class="input-field">
+            <button type="submit" class="search-button">Search</button>
+        </form>
 
-    <button onclick="toggleView()">Toggle View</button>
+        <button onclick="toggleView()" class="toggle-button">Toggle View</button>
 
-    <ul>
-        {% for event in events %}
-            <li>
-                <h2>{{ event.name }}</h2>
-                <p>Date: {{ event.date }} Time: {{ event.time }}</p>
-                <p>Venue: {{ event.venue }}</p>
+        <ul id="event-list">
+            {% for event in events %}
+                <li class="event-item">
+                    <h2 class="event-name">{{ event.name }}</h2>
+                    <p class="event-datetime">Date: {{ event.date }} Time: {{ event.time }}</p>
+                    <p class="event-venue">Venue: {{ event.venue }}</p>
 
-                <!-- Detailed View -->
-                <div class="details">
-                    {% if event.price %}
-                        <p>Price: £{{ event.price }}</p>
-                    {% endif %}
-                    {% if event.image %}
-                        <img src="{{ event.image }}" alt="Event Image" width="100">
-                    {% endif %}
-                    {% if event.url %}
-                        <p><a href="{{ event.url }}" target="_blank">More Info</a></p>
-                    {% endif %}
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+                    <!-- Detailed View -->
+                    <div class="details">
+                        {% if event.price %}
+                            <p class="event-price">Price: £{{ event.price }}</p>
+                        {% endif %}
+                        {% if event.image %}
+                            <img src="{{ event.image }}" alt="Event Image" class="event-image" width="100">
+                        {% endif %}
+                        {% if event.url %}
+                            <p class="event-link"><a href="{{ event.url }}" target="_blank">More Info</a></p>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
 
-    {% if next_page %}
-        <a href="?city={{ city }}&page={{ next_page }}">Next Page</a>
-    {% endif %}
+        {% if next_page %}
+            <a href="?city={{ city }}&page={{ next_page }}" class="pagination-link">Next Page</a>
+        {% endif %}
+    </section>
 {% endblock %}

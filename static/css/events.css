@@ -1,0 +1,140 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 10px;
+}
+
+/* Event Section Styling */
+#event-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#event-title {
+    font-size: 2em;
+    text-align: center;
+    color: #007bff;
+}
+
+/* Search Form */
+#event-search-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.input-field {
+    flex: 1;
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-button, .toggle-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-button:hover, .toggle-button:hover {
+    background-color: #0056b3;
+}
+
+/* Event List Styling */
+#event-list {
+    list-style: none;
+    padding: 0;
+}
+
+.event-item {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.event-name {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.event-datetime, .event-venue {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Detailed View */
+.details {
+    margin-top: 10px;
+}
+
+.event-price {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.event-image {
+    margin-top: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+.event-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.event-link a:hover {
+    text-decoration: underline;
+}
+
+/* Pagination Link */
+.pagination-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.pagination-link:hover {
+    text-decoration: underline;
+}
+
+/* Larger Screens */
+@media (min-width: 768px) {
+    #event-search-form {
+        flex-direction: row;
+    }
+
+    .search-button, .toggle-button {
+        width: auto;
+    }
+
+    #event-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .event-item {
+        width: calc(50% - 20px); /* Two columns */
+    }
+}
+
+@media (min-width: 1024px) {
+    .event-item {
+        width: calc(33.33% - 20px); /* Three columns */
+    }
+}
