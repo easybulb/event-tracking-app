@@ -10,43 +10,52 @@ body {
 #event-section {
     max-width: 800px;
     margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #event-title {
     font-size: 2em;
     text-align: center;
     color: #007bff;
+    margin-bottom: 20px;
 }
 
 /* Search Form */
 #event-search-form {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .form-label {
     font-weight: bold;
+    color: #333;
 }
 
 .input-field {
-    flex: 1;
-    margin-right: 10px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1em;
 }
 
-.search-button, .toggle-button {
-    padding: 8px 16px;
+.search-button, .toggle-button, .sort-button {
+    padding: 10px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: background-color 0.3s;
 }
 
-.search-button:hover, .toggle-button:hover {
+.search-button:hover, .toggle-button:hover, .sort-button:hover {
     background-color: #0056b3;
 }
 
@@ -62,11 +71,17 @@ body {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    transition: box-shadow 0.3s;
+}
+
+.event-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .event-name {
     font-size: 1.5em;
     margin-bottom: 5px;
+    color: #333;
 }
 
 .event-datetime, .event-venue {
@@ -74,7 +89,6 @@ body {
     color: #555;
 }
 
-/* Detailed View */
 .details {
     margin-top: 10px;
 }
@@ -88,6 +102,7 @@ body {
     margin-top: 10px;
     max-width: 100%;
     height: auto;
+    border-radius: 5px;
 }
 
 .event-link a {
@@ -106,6 +121,7 @@ body {
     margin-top: 20px;
     color: #007bff;
     text-decoration: none;
+    font-size: 1.2em;
 }
 
 .pagination-link:hover {
@@ -116,10 +132,12 @@ body {
 @media (min-width: 768px) {
     #event-search-form {
         flex-direction: row;
+        gap: 10px;
     }
 
-    .search-button, .toggle-button {
-        width: auto;
+    .input-field {
+        flex: 1;
+        margin-right: 10px;
     }
 
     #event-list {
