@@ -14,5 +14,9 @@
             </li>
         {% endfor %}
     </ul>
+
+    {% if next_page %}
+        <a href="?page={{ next_page }}">Next Page</a>
+    {% endif %}
 </body>
 </html>
