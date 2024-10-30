@@ -6,16 +6,23 @@ from datetime import datetime
 def home(request):
     return render(request, 'events/index.html')
 
-
 def fetch_events(request):
     city = request.GET.get('city', 'Manchester')
-    current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+    venue = request.GET.get('venue', '')
+    sorting = request.GET.get('sorting', 'popularity')  # Default sorting is by popularity
     page = request.GET.get('page', 1)
+    current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+    sort_param = "relevance,desc" if sorting == "popularity" else "date,asc"
 
+    # Add venue to the query if provided
     url = (
         f"https://app.ticketmaster.com/discovery/v2/events.json?"
-        f"city={city}&countryCode=GB&startDateTime={current_time}&page={page}&apikey={os.getenv('TICKETMASTER_KEY')}"
+        f"city={city}&countryCode=GB&startDateTime={current_time}&page={page}&sort={sort_param}"
+        f"&apikey={os.getenv('TICKETMASTER_KEY')}"
     )
+    if venue:
+        url += f"&keyword={venue}"  # Adds venue to search if specified
+
     response = requests.get(url)
 
     events = []
@@ -36,4 +43,10 @@ def fetch_events(request):
     else:
         print(f"Error fetching events: {response.status_code} - {response.text}")
 
-    return render(request, 'events_list.html', {'events': events, 'next_page': next_page, 'city': city})
+    return render(request, 'events_list.html', {
+        'events': events,
+        'next_page': next_page,
+        'city': city,
+        'venue': venue,  # Pass the venue to the template for display
+        'sorting': sorting
+    })

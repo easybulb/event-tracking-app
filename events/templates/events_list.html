@@ -13,12 +13,16 @@
         function toggleView() {
             var details = document.getElementsByClassName('details');
             for (var i = 0; i < details.length; i++) {
-                if (details[i].style.display === "none") {
-                    details[i].style.display = "block";
-                } else {
-                    details[i].style.display = "none";
-                }
+                details[i].style.display = details[i].style.display === "none" ? "block" : "none";
             }
+        }
+
+        function toggleSort() {
+            const currentUrl = new URL(window.location.href);
+            const currentSort = currentUrl.searchParams.get("sorting");
+            const newSort = currentSort === "popularity" ? "date" : "popularity";
+            currentUrl.searchParams.set("sorting", newSort);
+            window.location.href = currentUrl; // Reloads the page with new sorting
         }
     </script>
 
@@ -27,11 +31,25 @@
 
         <form method="get" action="{% url 'fetch_events' %}" id="event-search-form">
             <label for="city" class="form-label">Search by City:</label>
-            <input type="text" id="city" name="city" placeholder="Enter city name" class="input-field">
+            <input type="text" id="city" name="city" placeholder="Enter city name" class="input-field" value="{{ city }}">
+
+            <label for="venue" class="form-label">Search by Venue:</label>
+            <input type="text" id="venue" name="venue" placeholder="Enter venue name" class="input-field" value="{{ venue }}">
+
             <button type="submit" class="search-button">Search</button>
         </form>
 
+        <!-- Toggle View and Sort Button -->
         <button onclick="toggleView()" class="toggle-button">Toggle View</button>
+        
+        <button onclick="toggleSort()" class="sort-button">
+            Sort by 
+            {% if sorting == 'popularity' %}
+                Date
+            {% else %}
+                Popularity
+            {% endif %}
+        </button>
 
         <ul id="event-list">
             {% for event in events %}
@@ -57,7 +75,7 @@
         </ul>
 
         {% if next_page %}
-            <a href="?city={{ city }}&page={{ next_page }}" class="pagination-link">Next Page</a>
+            <a href="?city={{ city }}&venue={{ venue }}&page={{ next_page }}&sorting={{ sorting }}" class="pagination-link">Next Page</a>
         {% endif %}
     </section>
 {% endblock %}
