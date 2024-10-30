@@ -2,21 +2,58 @@
 <html>
 <head>
     <title>Event Listings</title>
+    <style>
+        .details { display: none; }
+    </style>
+    <script>
+        function toggleView() {
+            var details = document.getElementsByClassName('details');
+            for (var i = 0; i < details.length; i++) {
+                if (details[i].style.display === "none") {
+                    details[i].style.display = "block";
+                } else {
+                    details[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Upcoming Events</h1>
+
+    <form method="get" action="{% url 'fetch_events' %}">
+        <label for="city">Search by City:</label>
+        <input type="text" id="city" name="city" placeholder="Enter city name">
+        <button type="submit">Search</button>
+    </form>
+
+    <button onclick="toggleView()">Toggle View</button>
+
     <ul>
         {% for event in events %}
             <li>
                 <h2>{{ event.name }}</h2>
                 <p>Date: {{ event.date }} Time: {{ event.time }}</p>
                 <p>Venue: {{ event.venue }}</p>
+
+                <!-- Detailed View -->
+                <div class="details">
+                    {% if event.price %}
+                        <p>Price: £{{ event.price }}</p>
+                    {% endif %}
+                    {% if event.image %}
+                        <img src="{{ event.image }}" alt="Event Image" width="100">
+                    {% endif %}
+                    {% if event.url %}
+                        <p><a href="{{ event.url }}" target="_blank">More Info</a></p>
+                    {% endif %}
+                </div>
             </li>
         {% endfor %}
     </ul>
 
     {% if next_page %}
-        <a href="?page={{ next_page }}">Next Page</a>
+        <a href="?city={{ city }}&page={{ next_page }}">Next Page</a>
     {% endif %}
 </body>
 </html>
