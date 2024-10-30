@@ -8,9 +8,9 @@
     <ul>
         {% for event in events %}
             <li>
-                <h2>{{ event.name.text }}</h2>
-                <p>{{ event.description.text }}</p>
-                <p>Date: {{ event.start.local }}</p>
+                <h2>{{ event.name }}</h2>
+                <p>Date: {{ event.date }} Time: {{ event.time }}</p>
+                <p>Venue: {{ event.venue }}</p>
             </li>
         {% endfor %}
     </ul>
