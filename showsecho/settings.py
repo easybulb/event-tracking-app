@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from celery.schedules import crontab
 
 if os.path.isfile("env.py"):
     import env 
@@ -94,7 +95,6 @@ WSGI_APPLICATION = 'showsecho.wsgi.application'
 #     }
 # }
 
-import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -157,3 +157,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery settings
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+CELERY_BEAT_SCHEDULE = {
+    'poll-ticketmaster-api': {
+        'task': 'event_tracker.tasks.poll_ticketmaster_api',
+        'schedule': crontab(hour='*/2'),  # Every 2 hours; adjust as needed
+    },
+}

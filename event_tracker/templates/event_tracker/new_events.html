@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Events at Co-op Live and O2 Manchester</h1>
+    <ul>
+        {% for event in events %}
+            <li>
+                <h2>{{ event.name }}</h2>
+                <p>Date: {{ event.date }}</p>
+                <p>Venue: {{ event.venue }}</p>
+                {% if event.image %}
+                    <img src="{{ event.image }}" alt="Event Image" width="100">
+                {% endif %}
+                <a href="{{ event.url }}" target="_blank">View Event</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.home, name='index'),
     path('', include('events.urls')),
     path('events/', views.fetch_events, name='events_list'),
+    path('new-events/', include('event_tracker.urls')),
 ]
