@@ -30,11 +30,10 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+DEBUG = True
+
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.path.isfile("env.py"):
-    DEBUG = True
-else:
-    DEBUG = False
+
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost', 'showsecho.com']
 CSRF_TRUSTED_ORIGINS = ['https://*.codeinstitute-ide.net', 'https://*.herokuapp.com']
