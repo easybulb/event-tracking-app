@@ -7,7 +7,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-
 # Location model represents city, region, and country.
 class Location(models.Model):
     city = models.CharField(max_length=100)
@@ -16,7 +15,6 @@ class Location(models.Model):
 
     def __str__(self):
         return f"{self.city}, {self.region}, {self.country}" if self.region else f"{self.city}, {self.country}"
-
 
 # Event model represents individual events, linked to a category and location.
 class Event(models.Model):
@@ -27,6 +25,10 @@ class Event(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # New fields for URL and image
+    url = models.URLField(max_length=500, blank=True, null=True)
+    image = models.URLField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.title

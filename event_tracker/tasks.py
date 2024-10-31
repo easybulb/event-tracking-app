@@ -1,9 +1,8 @@
-# event_tracker/tasks.py
 import os
 import requests
 from datetime import datetime
 from celery import shared_task
-from .models import Event  # Assume Event model stores relevant data
+from events.models import Event, Location
 
 @shared_task
 def poll_ticketmaster_api():
@@ -26,15 +25,27 @@ def poll_ticketmaster_api():
             data = response.json().get('_embedded', {}).get('events', [])
             
             for event_data in data:
-                event_name = event_data.get('name')
+                event_title = event_data.get('name')
                 event_date = event_data.get('dates', {}).get('start', {}).get('localDate')
+                event_time = event_data.get('dates', {}).get('start', {}).get('localTime')
+                event_url = event_data.get('url')
+                event_image = event_data.get('images', [{}])[0].get('url')
+                
+                # Ensure the location exists or create it
+                location, created = Location.objects.get_or_create(
+                    city="Manchester",
+                    region=venue.split(",")[0].strip(),
+                    country="GB"
+                )
                 
                 # Check if the event is new
-                if not Event.objects.filter(name=event_name, date=event_date).exists():
+                if not Event.objects.filter(title=event_title, date=event_date, location=location).exists():
                     Event.objects.create(
-                        name=event_name,
+                        title=event_title,
+                        description=event_data.get('info', 'No description available'),
                         date=event_date,
-                        venue=venue,
-                        url=event_data.get('url'),
-                        image=event_data.get('images', [{}])[0].get('url')
+                        time=event_time,
+                        location=location,
+                        url=event_url,
+                        image=event_image
                     )
