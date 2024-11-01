@@ -163,12 +163,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery settings
-CELERY_BROKER_URL = os.getenv('UPSTASH_REDIS_URL')
-CELERY_RESULT_BACKEND = os.getenv('UPSTASH_REDIS_URL')
+CELERY_BROKER_URL = os.getenv('UPSTASH_REDIS_URL') + "?ssl_cert_reqs=CERT_NONE"
+CELERY_RESULT_BACKEND = os.getenv('UPSTASH_REDIS_URL') + "?ssl_cert_reqs=CERT_NONE"
 
 CELERY_BEAT_SCHEDULE = {
     'poll-ticketmaster-api': {
         'task': 'event_tracker.tasks.poll_ticketmaster_api',
-        'schedule': crontab(minute='*/15'),  # Every 15 minute for testing
+        'schedule': crontab(minute='*/1'),  # Every 1 minute for testing
     },
 }
