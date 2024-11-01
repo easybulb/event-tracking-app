@@ -160,8 +160,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery settings
-CELERY_BROKER_URL = os.getenv('rediss://:AYEFAQIncDE2NGFkZDkxOWZlOTk0YzUwODhhY2Q0ZmY5NDFkM2Q2ZnAxMzMwMjk@prime-polliwog-33029.upstash.io:6379') 
-CELERY_RESULT_BACKEND = os.getenv('rediss://:AYEFAQIncDE2NGFkZDkxOWZlOTk0YzUwODhhY2Q0ZmY5NDFkM2Q2ZnAxMzMwMjk@prime-polliwog-33029.upstash.io:6379')
+CELERY_BROKER_URL = os.getenv('UPSTASH_REDIS_URL')
+CELERY_RESULT_BACKEND = os.getenv('UPSTASH_REDIS_URL')
 
 CELERY_BEAT_SCHEDULE = {
     'poll-ticketmaster-api': {
