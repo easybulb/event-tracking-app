@@ -16,7 +16,6 @@ body {
   line-height: 1.6;
 }
 
-/* Event Section Styling */
 #event-section {
   padding: 2rem 1rem;
   background-color: var(--light-color);
@@ -29,7 +28,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* Search Form Styling */
 #event-search-form {
   display: flex;
   justify-content: center;
@@ -89,7 +87,6 @@ body {
   margin: 0.3rem 0;
 }
 
-/* Adjusted Image Size */
 .event-image {
   display: block;
   margin-top: 1rem;
@@ -99,14 +96,9 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Larger screens: 3-column grid for event list and smaller image */
 @media (min-width: 1024px) {
   #event-list {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .event-item {
-    padding: 1rem;
   }
 
   .event-image {
@@ -127,15 +119,28 @@ body {
   }
 }
 
-/* Responsive adjustments for form */
+/* Mobile adjustments */
 @media (max-width: 768px) {
   #event-search-form {
-    text-align: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .form-label, .input-field, .search-button, .sort-button {
+  .form-label {
+    display: inline-block;
+    margin-right: 0.5rem;
+    width: auto;
+  }
+
+  .input-field {
     width: 100%;
-    max-width: 100%;
+    max-width: 250px;
+  }
+
+  .search-button, .sort-button {
+    width: 100%;
+    max-width: 150px;
+    margin: 0.3rem auto;
   }
 
   #event-title {
