@@ -10,7 +10,6 @@
   --grey-color: #333;
 }
 
-/* General Styling */
 body {
   font-family: "Lato", sans-serif;
   color: var(--grey-color);
@@ -34,25 +33,23 @@ body {
 #event-search-form {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  align-items: center;
 }
 
 .form-label {
   font-weight: bold;
-  margin-bottom: 0.3rem;
   color: var(--grey-color);
-  width: 100%;
-  text-align: left;
 }
 
 .input-field {
   padding: 0.5rem;
   border: 1px solid var(--grey-color);
   border-radius: 5px;
-  width: 100%;
-  max-width: 250px;
+  width: 200px;
 }
 
 .search-button, .sort-button {
@@ -63,16 +60,13 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin: 0.3rem;
-  width: 100%;
-  max-width: 250px;
 }
 
 /* Event List Styling */
 #event-list {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 1.5rem;
-  max-width: 900px;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -95,6 +89,7 @@ body {
   margin: 0.3rem 0;
 }
 
+/* Adjusted Image Size */
 .event-image {
   display: block;
   margin-top: 1rem;
@@ -104,30 +99,43 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Limit image size for large screens */
+/* Larger screens: 3-column grid for event list and smaller image */
 @media (min-width: 1024px) {
+  #event-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .event-item {
+    padding: 1rem;
+  }
+
   .event-image {
-    max-width: 600px;
+    max-width: 80%;
+  }
+
+  #event-search-form {
+    gap: 1rem;
+  }
+
+  .form-label {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+
+  .input-field {
+    width: 250px;
   }
 }
 
-.event-link a {
-  color: var(--primary-color);
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-/* Responsive adjustments */
+/* Responsive adjustments for form */
 @media (max-width: 768px) {
   #event-search-form {
-    gap: 0.3rem;
     text-align: center;
   }
 
   .form-label, .input-field, .search-button, .sort-button {
     width: 100%;
     max-width: 100%;
-    margin-bottom: 0.5rem;
   }
 
   #event-title {
