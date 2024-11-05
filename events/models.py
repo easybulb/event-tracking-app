@@ -29,6 +29,8 @@ class Event(models.Model):
     # New fields for URL and image
     url = models.URLField(max_length=500, blank=True, null=True)
     image = models.URLField(max_length=500, blank=True, null=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

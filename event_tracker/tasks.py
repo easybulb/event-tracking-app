@@ -38,7 +38,7 @@ def poll_ticketmaster_api():
                     country="GB"
                 )
                 
-                # Check if the event is new
+                # Only add the event if it doesn’t already exist
                 if not Event.objects.filter(title=event_title, date=event_date, location=location).exists():
                     Event.objects.create(
                         title=event_title,
