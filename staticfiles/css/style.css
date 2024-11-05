@@ -656,6 +656,7 @@ pre {
 @media (max-width: 500px) {
   .navbar {
     height: 110px;
+    border-top: 15px;
   }
 
   .navbar .flex {
