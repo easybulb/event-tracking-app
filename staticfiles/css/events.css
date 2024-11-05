@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+
+:root {
+  --primary-color: #091250;
+  --secondary-color: #134476;
+  --dark-color: #04101a;
+  --light-color: #f4f4f4;
+  --success-color: #5cb85c;
+  --error-color: #d9534f;
+  --grey-color: #333;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: var(--grey-color);
+  line-height: 1.6;
+}
+
+#event-section {
+  padding: 2rem 1rem;
+  background-color: var(--light-color);
+}
+
+#event-title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+#event-search-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  align-items: center;
+}
+
+.form-label {
+  font-weight: bold;
+  color: var(--grey-color);
+}
+
+.input-field {
+  padding: 0.5rem;
+  border: 1px solid var(--grey-color);
+  border-radius: 5px;
+  width: 200px;
+}
+
+.search-button, .sort-button {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0.3rem;
+}
+
+/* Event List Styling */
+#event-list {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.event-item {
+  background-color: #fff;
+  padding: 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-name {
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  margin-bottom: 0.5rem;
+}
+
+.event-datetime, .event-venue, .event-price {
+  font-size: 1rem;
+  color: var(--grey-color);
+  margin: 0.3rem 0;
+}
+
+.event-image {
+  display: block;
+  margin-top: 1rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 1024px) {
+  #event-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .event-image {
+    max-width: 80%;
+  }
+
+  #event-search-form {
+    gap: 1rem;
+  }
+
+  .form-label {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+
+  .input-field {
+    width: 250px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  #event-search-form {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-label {
+    display: inline-block;
+    margin-right: 0.5rem;
+    width: auto;
+  }
+
+  .input-field {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .search-button, .sort-button {
+    width: 100%;
+    max-width: 150px;
+    margin: 0.3rem auto;
+  }
+
+  #event-title {
+    font-size: 1.8rem;
+  }
+}

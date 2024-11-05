@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block title %}Home - ShowsEcho{% endblock %}
@@ -51,6 +50,27 @@
         <h3>300+</h3>
         <p class="text-secondary">Cities Covered</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Events Section -->
+<section class="featured-events py-5">
+  <div class="container">
+    <h2 class="text-center">Featured Events</h2>
+    <div class="grid grid-3 my-4">
+      {% for event in featured_events %}
+      <div class="card">
+        <img src="{{ event.image }}" alt="{{ event.name }}" class="event-image">
+        <h3>{{ event.name }}</h3>
+        <p>📅 {{ event.date }} | 🕒 {{ event.time }}</p>
+        <p>📍 {{ event.venue }}</p>
+        {% if event.price %}
+          <p>💲 {{ event.price }}</p>
+        {% endif %}
+        <a href="{{ event.url }}" target="_blank" class="btn btn-primary">More Info</a>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </section>

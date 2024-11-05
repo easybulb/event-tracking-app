@@ -9,7 +9,43 @@ from .models import ContactMessage
 from .forms import ContactForm
 
 def home(request):
-    return render(request, 'events/index.html')
+    # Fetching a few featured events from the API
+    city = "Manchester"  # Set a default city for the featured events
+    current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+    
+    url = (
+        f"https://app.ticketmaster.com/discovery/v2/events.json?"
+        f"city={city}&countryCode=GB&startDateTime={current_time}&size=3"
+        f"&apikey={os.getenv('TICKETMASTER_KEY')}"
+    )
+
+    response = requests.get(url)
+    featured_events = []
+
+    if response.status_code == 200:
+        data = response.json().get('_embedded', {}).get('events', [])
+        for event in data:
+            price_info = event.get('priceRanges', [{}])[0]
+            min_price = price_info.get('min')
+            max_price = price_info.get('max')
+            price = None
+            if min_price and max_price:
+                price = f"£{min_price} - £{max_price}"
+            elif min_price:
+                price = f"£{min_price}"
+
+            featured_events.append({
+                'name': event.get('name'),
+                'date': event.get('dates', {}).get('start', {}).get('localDate'),
+                'time': event.get('dates', {}).get('start', {}).get('localTime'),
+                'venue': event.get('_embedded', {}).get('venues', [{}])[0].get('name'),
+                'price': price,
+                'image': event.get('images', [{}])[0].get('url'),
+                'url': event.get('url')
+            })
+
+    return render(request, 'events/index.html', {'featured_events': featured_events})
+
 
 def fetch_events(request):
     city = request.GET.get('city', 'Manchester')
