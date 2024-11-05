@@ -71,3 +71,32 @@
 .event-link .btn:hover {
     background-color: var(--secondary-color);
 }
+
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.pagination .btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.pagination .btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.pagination span {
+    font-size: 1rem;
+    color: var(--grey-color);
+}
