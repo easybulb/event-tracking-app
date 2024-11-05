@@ -1,18 +1,28 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/new_events.css' %}">
+{% endblock %}
 
 {% block content %}
-    <h1>New Events at Co-op Live and O2 Manchester</h1>
-    <ul>
-        {% for event in events %}
-            <li>
-                <h2>{{ event.title }}</h2>
-                <p>Date: {{ event.date }}</p>
-                <p>Venue: {{ event.location.city }}, {{ event.location.region }}</p>
-                {% if event.image %}
-                    <img src="{{ event.image }}" alt="Event Image" width="100">
-                {% endif %}
-                <a href="{{ event.url }}" target="_blank">View Event</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <section id="event-section">
+        <h1 id="event-title">New Events at Co-op Live and O2 Manchester</h1>
+
+        <ul id="event-list">
+            {% for event in events %}
+                <li class="event-item card">
+                    <h2 class="event-name">{{ event.title }}</h2>
+                    <p class="event-datetime">📅 {{ event.date }}</p>
+                    <p class="event-venue">📍 {{ event.location.city }}, {{ event.location.region }}</p>
+                    {% if event.image %}
+                        <img src="{{ event.image }}" alt="{{ event.title }}" class="event-image">
+                    {% endif %}
+                    <div class="event-link">
+                        <a href="{{ event.url }}" target="_blank" class="btn btn-primary">View Event</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}

@@ -1,0 +1,73 @@
+/* new_events.css */
+
+/* Main Event Section */
+#event-section {
+    padding: 2rem 0;
+    background-color: var(--light-color);
+}
+
+#event-title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Event List Styling */
+#event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.event-item {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.event-name {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    margin: 1rem 0 0.5rem;
+}
+
+.event-datetime,
+.event-venue {
+    font-size: 1rem;
+    color: var(--grey-color);
+    margin: 0.3rem 0;
+}
+
+.event-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.event-link .btn {
+    margin-top: 1rem;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.event-link .btn:hover {
+    background-color: var(--secondary-color);
+}

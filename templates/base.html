@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}ShowsEcho{% endblock %}</title>
-  
+
   <!-- Link to main CSS file -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -23,6 +23,7 @@
         <ul>
           <li><a href="{% url 'home' %}">Home</a></li>
           <li><a href="{% url 'events_list' %}">Events</a></li>
+          <li><a href="{% url 'new_events' %}">New Events</a></li>
           <li><a href="{% url 'about' %}">About</a></li>
           <li><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
