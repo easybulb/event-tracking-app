@@ -22,7 +22,7 @@ body {
   line-height: 1.6;
 }
 
-/* Navbar adjustments */
+/* Navbar */
 .navbar .logo {
   margin-top: 10px;
   font-size: 1.8rem;
@@ -610,7 +610,7 @@ pre {
 
   .navbar .logo {
     margin-top: 15px;
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .text-center {
