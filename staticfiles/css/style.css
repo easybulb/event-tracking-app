@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
 
 :root {
-  --primary-color: #047aed;
-  --secondary-color: #1c3fa8;
-  --dark-color: #002240;
+  --primary-color: #091250;
+  --secondary-color: #134476;
+  --dark-color: #04101a;
   --light-color: #f4f4f4;
   --success-color: #5cb85c;
   --error-color: #d9534f;
@@ -321,6 +321,7 @@ pre {
 }
 
 .navbar a {
+  border-top: 20px;
   color: #fff;
   padding: 10px;
   margin: 0 5px;
