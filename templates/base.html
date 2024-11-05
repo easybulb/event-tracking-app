@@ -6,7 +6,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}ShowsEcho{% endblock %}</title>
+  
+  <!-- Link to main CSS file -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Block for additional CSS -->
+  {% block extra_css %}{% endblock %}
 </head>
 <body>
 
