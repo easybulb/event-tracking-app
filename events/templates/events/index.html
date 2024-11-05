@@ -1,11 +1,108 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
 {% load static %}
 
-{% block title %}
-    Home - Event Tracking
-{% endblock %}
+{% block title %}Home - ShowsEcho{% endblock %}
 
 {% block content %}
-    <h2>Welcome to the Event Tracking App!</h2>
-    <p>This is the homepage content.</p>
+
+<!-- Showcase Section -->
+<section class="showcase" id="events">
+  <div class="container grid">
+    <div class="showcase-text">
+      <h1>Discover Major Events Around You</h1>
+      <p>From concerts to festivals, ShowsEcho helps you keep track of the biggest events in your area.</p>
+      <a href="{% url 'events_list' %}" class="btn btn-outline">Explore Events</a>
+    </div>
+    <div class="showcase-form card">
+      <h2>Get Event Updates</h2>
+      <form onsubmit="event.preventDefault()">
+        <div class="form-control">
+          <input type="text" name="name" placeholder="Your Name" required />
+        </div>
+        <div class="form-control">
+          <input type="email" name="email" placeholder="Your Email" required />
+        </div>
+        <input type="submit" value="Subscribe" class="btn btn-primary" />
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+  <div class="container">
+    <h3 class="stats-heading text-center my-1">
+      ShowsEcho - Your Partner for Event Awareness and Hospitality Planning
+    </h3>
+    <div class="grid grid-3 text-center my-4">
+      <div>
+        <i class="fas fa-calendar-alt fa-3x"></i>
+        <h3>500+</h3>
+        <p class="text-secondary">Upcoming Events</p>
+      </div>
+      <div>
+        <i class="fas fa-users fa-3x"></i>
+        <h3>200K+</h3>
+        <p class="text-secondary">Subscribers</p>
+      </div>
+      <div>
+        <i class="fas fa-map-marked-alt fa-3x"></i>
+        <h3>300+</h3>
+        <p class="text-secondary">Cities Covered</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features">
+  <div class="features-head bg-primary py-3">
+    <div class="container grid">
+      <div>
+        <h1 class="xl">Platform Highlights</h1>
+        <p class="lead">Plan your stay or event attendance with exclusive insights and notifications.</p>
+      </div>
+      <img src="{% static 'images/events.jpg' %}" alt="ShowsEcho Features">
+    </div>
+  </div>
+  <div class="features-main my-2">
+    <div class="container grid grid-3">
+      <div class="card flex">
+        <i class="fas fa-bell fa-3x"></i>
+        <p>Get notified of upcoming concerts, sports, and festivals in your area.</p>
+      </div>
+      <div class="card flex">
+        <i class="fas fa-map-marker-alt fa-3x"></i>
+        <p>Track events by location and get custom recommendations for places to stay.</p>
+      </div>
+      <div class="card flex">
+        <i class="fas fa-ticket-alt fa-3x"></i>
+        <p>Explore ticketing options directly from your ShowsEcho account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about bg-light py-5" id="about">
+  <div class="container">
+    <h2 class="text-center">About ShowsEcho</h2>
+    <p class="text-center my-2">
+      ShowsEcho is a comprehensive event tracker platform helping people find, explore, and enjoy events while helping hosts prepare for increased demand. Whether you're looking for concerts, sports events, or festivals, we've got you covered.
+    </p>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact bg-primary py-5" id="contact">
+  <div class="container">
+    <h2 class="text-center text-light">Stay in the Loop</h2>
+    <p class="text-center text-light">Contact us for partnerships or inquiries.</p>
+    <div class="text-center">
+      <a href="mailto:info@showsecho.com" class="btn btn-light">Contact Us</a>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

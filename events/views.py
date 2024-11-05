@@ -1,7 +1,12 @@
 import os
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 from datetime import datetime
+from django.conf import settings
+from django.contrib import messages
+from .models import ContactMessage
+from .forms import ContactForm
 
 def home(request):
     return render(request, 'events/index.html')
@@ -47,7 +52,7 @@ def fetch_events(request):
                 'date': event.get('dates', {}).get('start', {}).get('localDate'),
                 'time': event.get('dates', {}).get('start', {}).get('localTime'),
                 'venue': event.get('_embedded', {}).get('venues', [{}])[0].get('name'),
-                'price': price,  # Updated price formatting
+                'price': price,
                 'image': event.get('images', [{}])[0].get('url'),
                 'url': event.get('url')
             })
@@ -55,10 +60,37 @@ def fetch_events(request):
     else:
         print(f"Error fetching events: {response.status_code} - {response.text}")
 
-    return render(request, 'events_list.html', {
+    return render(request, 'events/events_list.html', {
         'events': events,
         'next_page': next_page,
         'city': city,
         'venue': venue,
         'sorting': sorting
     })
+
+def about(request):
+    return render(request, 'events/about.html')
+
+def contact(request):
+    return render(request, 'events/contact.html')
+
+def send_message(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Save the message to the database
+            ContactMessage.objects.create(
+                name=form.cleaned_data['name'],
+                email=form.cleaned_data['email'],
+                subject=form.cleaned_data['subject'],
+                message=form.cleaned_data['message'],
+            )
+            messages.success(request, 'Your message has been sent!')
+            return redirect('contact')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = ContactForm()
+
+    return render(request, 'events/contact.html', {'form': form})
+

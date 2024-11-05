@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/events.css' %}">
+{% endblock %}
+
+{% block content %}
+    <style>
+        /* Additional styling for the events page */
+        #event-section {
+            padding: 2rem 0;
+            background-color: var(--light-color);
+        }
+        
+        #event-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        #event-search-form {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .form-label {
+            font-weight: bold;
+            margin-right: 0.5rem;
+            color: var(--grey-color);
+        }
+        
+        .input-field {
+            padding: 0.5rem;
+            border: 1px solid var(--grey-color);
+            border-radius: 5px;
+            width: 200px;
+        }
+        
+        .search-button, .toggle-button, .sort-button, .pagination-link {
+            padding: 0.7rem 1.5rem;
+            color: #fff;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0.5rem;
+            text-align: center;
+        }
+
+        #event-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .event-item {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-name {
+            font-size: 1.75rem;
+            color: var(--dark-color);
+        }
+
+        .event-datetime, .event-venue, .event-price {
+            font-size: 1rem;
+            color: var(--grey-color);
+            margin: 0.5rem 0;
+        }
+
+        .event-image {
+            display: block;
+            margin-top: 1rem;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-link a {
+            color: var(--primary-color);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .details {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .details.visible {
+            display: block;
+        }
+    </style>
+
+    <section id="event-section">
+        <h1 id="event-title">Discover Events Near You</h1>
+
+        <form method="get" action="{% url 'fetch_events' %}" id="event-search-form">
+            <label for="city" class="form-label">City:</label>
+            <input type="text" id="city" name="city" placeholder="Enter city name" class="input-field" value="{{ city }}">
+
+            <label for="venue" class="form-label">Venue:</label>
+            <input type="text" id="venue" name="venue" placeholder="Enter venue name" class="input-field" value="{{ venue }}">
+
+            <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <div class="text-center">
+            <button onclick="toggleView()" class="toggle-button">Toggle Details</button>
+            <button onclick="toggleSort()" class="sort-button">
+                Sort by 
+                {% if sorting == 'popularity' %} Date {% else %} Popularity {% endif %}
+            </button>
+        </div>
+
+        <ul id="event-list">
+            {% for event in events %}
+                <li class="event-item">
+                    <h2 class="event-name">{{ event.name }}</h2>
+                    <p class="event-datetime">📅 {{ event.date }} | 🕒 {{ event.time }}</p>
+                    <p class="event-venue">📍 {{ event.venue }}</p>
+
+                    <!-- Detailed View -->
+                    <div class="details">
+                        {% if event.price %}
+                            <p class="event-price">💲 Price: £{{ event.price }}</p>
+                        {% endif %}
+                        {% if event.image %}
+                            <img src="{{ event.image }}" alt="Event Image" class="event-image">
+                        {% endif %}
+                        {% if event.url %}
+                            <p class="event-link"><a href="{{ event.url }}" target="_blank">More Info</a></p>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if next_page %}
+            <div class="text-center my-3">
+                <a href="?city={{ city }}&venue={{ venue }}&page={{ next_page }}&sorting={{ sorting }}" class="pagination-link">Next Page</a>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

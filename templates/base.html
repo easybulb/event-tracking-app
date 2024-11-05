@@ -1,39 +1,55 @@
-
 {% load static %}
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Event Tracking{% endblock %}</title>
-
-    <!-- Link to main CSS file -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- Block for additional CSS -->
-    {% block extra_css %}{% endblock %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}ShowsEcho{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>ShowsEcho - Event Tracking App</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'events_list' %}">Events List</a></li>
-                <li><a href="{% url 'new_events' %}">New Events</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main class="content">
-        {% block content %}
-        {% endblock %}
-    </main>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="container flex">
+      <h1><a href="{% url 'home' %}" class="logo">ShowsEcho</a></h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'events_list' %}">Events</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2023 ShowsEcho. All rights reserved.</p>
-    </footer>
+  {% block content %}{% endblock %}
+
+  <!-- Footer -->
+  <footer class="footer bg-dark py-5">
+    <div class="container grid grid-3">
+      <div>
+        <h1><a href="{% url 'home' %}">ShowsEcho</a></h1>
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> ShowsEcho - All Rights Reserved</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'events_list' %}">Events</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="social">
+        <a href="#"><i class="fab fa-github fa-2x"></i></a>
+        <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+        <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+        <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
