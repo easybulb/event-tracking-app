@@ -70,6 +70,8 @@
         {% endif %}
         <a href="{{ event.url }}" target="_blank" class="btn btn-primary">More Info</a>
       </div>
+      {% empty %}
+      <p class="text-center">No featured events available at the moment. Check back later!</p>
       {% endfor %}
     </div>
   </div>

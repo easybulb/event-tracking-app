@@ -1,5 +1,6 @@
 import os
 import requests
+import random
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from datetime import datetime
@@ -9,13 +10,13 @@ from .models import ContactMessage
 from .forms import ContactForm
 
 def home(request):
-    # Fetching a few featured events from the API
-    city = "Manchester"  # Set a default city for the featured events
+    # Fetching events from the API
+    city = "Manchester"  # Default city for featured events
     current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     
     url = (
         f"https://app.ticketmaster.com/discovery/v2/events.json?"
-        f"city={city}&countryCode=GB&startDateTime={current_time}&size=3"
+        f"city={city}&countryCode=GB&startDateTime={current_time}&size=10"
         f"&apikey={os.getenv('TICKETMASTER_KEY')}"
     )
 
@@ -24,7 +25,11 @@ def home(request):
 
     if response.status_code == 200:
         data = response.json().get('_embedded', {}).get('events', [])
-        for event in data:
+        
+        # Shuffle the events and pick 3 unique ones if there are enough
+        unique_events = random.sample(data, min(len(data), 3))
+        
+        for event in unique_events:
             price_info = event.get('priceRanges', [{}])[0]
             min_price = price_info.get('min')
             max_price = price_info.get('max')
@@ -71,12 +76,10 @@ def fetch_events(request):
     if response.status_code == 200:
         data = response.json().get('_embedded', {}).get('events', [])
         for event in data:
-            # Adjusted price retrieval
             price_info = event.get('priceRanges', [{}])[0]
             min_price = price_info.get('min')
             max_price = price_info.get('max')
             
-            # Format price based on availability
             price = None
             if min_price and max_price:
                 price = f"£{min_price} - £{max_price}"
@@ -129,4 +132,3 @@ def send_message(request):
         form = ContactForm()
 
     return render(request, 'events/contact.html', {'form': form})
-
