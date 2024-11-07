@@ -1,17 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
 
-:root {
-  --primary-color: #091250;
-  --secondary-color: #134476;
-  --dark-color: #04101a;
-  --light-color: #f4f4f4;
-  --success-color: #5cb85c;
-  --error-color: #d9534f;
-  --grey-color: #333;
-}
 
 body {
-  font-family: "Lato", sans-serif;
+  font-family: 'Catamaran', sans-serif;
   color: var(--grey-color);
   line-height: 1.6;
 }

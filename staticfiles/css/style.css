@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Lora:wght@400;700&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Lora:wght@400;700&display=swap");
 
 :root {
   --primary-color: #091250;
@@ -17,7 +19,9 @@
 }
 
 body {
-  font-family: "Lato", sans-serif;
+  /* font-family: "Lato", sans-serif; */
+  /* font-family: "Lora", sans-serif; */
+  font-family: 'Catamaran', sans-serif;
   color: var(--grey-color);
   line-height: 1.6;
 }
@@ -171,11 +175,11 @@ pre {
 
 /* Text sizes */
 .lead {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .sm {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 .md {
