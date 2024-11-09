@@ -12,6 +12,13 @@ https://event-tracking-app-c8e70a2c25f8.herokuapp.com/
 - Task Scheduling: Celery with Redis
 - Database: PostgreSQL (or SQLite for development)
 
+## Credits
+Solygambas CodePen for Layout and CSS idea.
+
+## Developer
+Henry Ofodieze
+
+
 ## Disclaimer
 
 The content of this repository is provided for viewing and reference purposes only. **Cloning, copying, or redistributing** any part of this repository without prior written permission from the repository myself is strictly prohibited.
@@ -19,3 +26,5 @@ The content of this repository is provided for viewing and reference purposes on
 If you would like to use, clone, or reference any code from this project, please contact me directly for permission.
 
 Thank you for respecting the effort and intellectual property rights associated with this work.
+
+
