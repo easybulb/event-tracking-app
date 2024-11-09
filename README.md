@@ -4,6 +4,13 @@ ShowsEcho is an event-tracking platform designed to keep users updated on major 
 
 https://event-tracking-app-c8e70a2c25f8.herokuapp.com/
 
+## Why I Built ShowsEcho
+
+ShowsEcho was created to address a gap in event tracking and planning for both guests and hosts. As someone who manages an Airbnb, I realized the value of staying informed about major events happening nearby. With ShowsEcho, hosts can be proactive, adjusting their offerings during big concerts or festivals to attract guests. Additionally, ShowsEcho makes it easy for event-goers to discover and track upcoming shows in their area, providing them with a streamlined experience to plan their attendance.
+
+The platform combines practicality and convenience, enabling hosts to optimize their accommodations and event-goers to find relevant information in one place.
+
+
 ## Technologies Used
 
 - Backend: Django, Django REST Framework
