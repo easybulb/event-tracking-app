@@ -169,6 +169,6 @@ CELERY_RESULT_BACKEND = os.getenv('UPSTASH_REDIS_URL') + "?ssl_cert_reqs=CERT_NO
 CELERY_BEAT_SCHEDULE = {
     'poll-ticketmaster-api': {
         'task': 'event_tracker.tasks.poll_ticketmaster_api',
-        'schedule': crontab(minute='*/1'),  # Every 1 minute for testing
+        'schedule': crontab(minute=0, hour='*'),  # Every hour on the hour
     },
 }
