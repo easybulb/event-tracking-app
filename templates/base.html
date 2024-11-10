@@ -30,6 +30,15 @@
     </div>
   </div>
 
+  <!-- Confirmation Messages -->
+  {% if messages %}
+    <div>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+  {% endif %}
+
   {% block content %}{% endblock %}
 
   <!-- Footer -->

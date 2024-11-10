@@ -38,7 +38,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost', 'showsecho.com']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost', 'showsecho.com', 'www.showsecho.com']
 CSRF_TRUSTED_ORIGINS = ['https://*.codeinstitute-ide.net', 'https://*.herokuapp.com']
 
 
