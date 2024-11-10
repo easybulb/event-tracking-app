@@ -25,7 +25,19 @@ The platform combines practicality and convenience, enabling hosts to optimize t
 - Database: PostgreSQL (or SQLite for development)
 
 ## Credits
-Solygambas CodePen for Layout and CSS idea.
+
+- **Ticketmaster** - For providing the events API, allowing ShowsEcho to pull real-time event information and deliver accurate event listings.
+- **Upstash** - For the Redis add-on used in Heroku, supporting Celery configuration and enabling smooth background task processing for the application.
+- **Heroku Postgres** - For the database services, ensuring reliable data storage and management.
+- **VS Code** - For the development environment, offering a robust and versatile code editor with extensions that streamlined the coding process.
+- **Solygambas on CodePen** - For inspiring the layout and CSS ideas used in ShowsEcho, providing a foundation for a clean and user-friendly design.
+- **Celery** - For the asynchronous task queue, making it possible to handle background tasks and periodic polling of the Ticketmaster API.
+- **GitHub** - For version control and project hosting, making collaboration and deployment easier.
+- **Django** - For the web framework that powers ShowsEcho, facilitating rapid development and a clean project structure.
+- **Heroku** - For application hosting, allowing ShowsEcho to be accessible to users around the world with seamless deployment and scaling capabilities.
+  
+Thank you to these providers, resources, and the open-source community for the tools and inspiration that made ShowsEcho possible.
+
 
 ## Developer
 Henry Ofodieze
