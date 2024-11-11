@@ -2,10 +2,10 @@ import os
 import requests
 import random
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
 from datetime import datetime
 from django.conf import settings
 from django.contrib import messages
+from django.utils.dateparse import parse_date
 from .models import ContactMessage
 from .forms import ContactForm
 
@@ -25,19 +25,13 @@ def home(request):
 
     if response.status_code == 200:
         data = response.json().get('_embedded', {}).get('events', [])
-        
-        # Shuffle the events and pick 3 unique ones if there are enough
         unique_events = random.sample(data, min(len(data), 3))
         
         for event in unique_events:
             price_info = event.get('priceRanges', [{}])[0]
             min_price = price_info.get('min')
             max_price = price_info.get('max')
-            price = None
-            if min_price and max_price:
-                price = f"£{min_price} - £{max_price}"
-            elif min_price:
-                price = f"£{min_price}"
+            price = f"£{min_price} - £{max_price}" if min_price and max_price else f"£{min_price}" if min_price else None
 
             featured_events.append({
                 'name': event.get('name'),
@@ -53,60 +47,80 @@ def home(request):
 
 
 def fetch_events(request):
-    city = request.GET.get('city', 'Manchester')
-    venue = request.GET.get('venue', '')
-    sorting = request.GET.get('sorting', 'popularity')
-    page = request.GET.get('page', 1)
-    current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-    sort_param = "relevance,desc" if sorting == "popularity" else "date,asc"
+    anything_query = request.GET.get('anything', '').strip()
+    date_filter = request.GET.get('date', '').strip()
+    page = int(request.GET.get('page', 1))
 
-    # Add venue to the query if provided
-    url = (
-        f"https://app.ticketmaster.com/discovery/v2/events.json?"
-        f"city={city}&countryCode=GB&startDateTime={current_time}&page={page}&sort={sort_param}"
-        f"&apikey={os.getenv('TICKETMASTER_KEY')}"
-    )
-    if venue:
-        url += f"&keyword={venue}"
+    # Base URL for Ticketmaster API
+    base_url = f"https://app.ticketmaster.com/discovery/v2/events.json?countryCode=GB&page={page}&apikey={os.getenv('TICKETMASTER_KEY')}"
+
+    # Construct URL based on the provided search input
+    if anything_query:
+        url = f"{base_url}&keyword={anything_query}"
+    elif date_filter:
+        parsed_date = parse_date(date_filter)
+        if parsed_date:
+            start_date_time = f"{parsed_date}T00:00:00Z"
+            end_date_time = f"{parsed_date}T23:59:59Z"
+            url = f"{base_url}&startDateTime={start_date_time}&endDateTime={end_date_time}"
+        else:
+            url = base_url
+    else:
+        url = base_url
 
     response = requests.get(url)
 
     events = []
     next_page = None
+    previous_page = None
+    total_pages = 1  # Default to 1 if pagination is not available
     if response.status_code == 200:
         data = response.json().get('_embedded', {}).get('events', [])
         for event in data:
             price_info = event.get('priceRanges', [{}])[0]
             min_price = price_info.get('min')
             max_price = price_info.get('max')
-            
-            price = None
-            if min_price and max_price:
-                price = f"£{min_price} - £{max_price}"
-            elif min_price:
-                price = f"£{min_price}"
+            price = f"£{min_price} - £{max_price}" if min_price and max_price else f"£{min_price}" if min_price else None
+
+            # Get location details, including full address if available
+            venue_data = event.get('_embedded', {}).get('venues', [{}])[0]
+            venue_name = venue_data.get('name')
+            city = venue_data.get('city', {}).get('name', '')
+            state = venue_data.get('state', {}).get('name', '')
+            country = venue_data.get('country', {}).get('name', '')
+            address = f"{venue_name}, {city}, {state}, {country}".strip(", ")
 
             events.append({
                 'name': event.get('name'),
                 'date': event.get('dates', {}).get('start', {}).get('localDate'),
                 'time': event.get('dates', {}).get('start', {}).get('localTime'),
-                'venue': event.get('_embedded', {}).get('venues', [{}])[0].get('name'),
+                'venue': venue_name,
+                'location': address,
                 'price': price,
                 'image': event.get('images', [{}])[0].get('url'),
                 'url': event.get('url')
             })
-        next_page = response.json().get('page', {}).get('number') + 1 if response.json().get('page', {}).get('totalPages', 1) > int(page) else None
-    else:
-        print(f"Error fetching events: {response.status_code} - {response.text}")
+        
+        pagination_info = response.json().get('page', {})
+        total_pages = pagination_info.get('totalPages', 1)
+        if page < total_pages:
+            next_page = page + 1
+        if page > 1:
+            previous_page = page - 1
+
+    # Generate the list of page numbers
+    page_numbers = list(range(1, total_pages + 1))
 
     return render(request, 'events/events_list.html', {
         'events': events,
         'next_page': next_page,
-        'city': city,
-        'venue': venue,
-        'sorting': sorting
+        'previous_page': previous_page,
+        'current_page': page,
+        'page_numbers': page_numbers,
+        'anything_query': anything_query,
+        'date_filter': date_filter
     })
-
+    
 def about(request):
     return render(request, 'events/about.html')
 
@@ -117,7 +131,6 @@ def send_message(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Save the message to the database
             ContactMessage.objects.create(
                 name=form.cleaned_data['name'],
                 email=form.cleaned_data['email'],
