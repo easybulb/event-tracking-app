@@ -10,9 +10,9 @@
         <h1 id="event-title">Newly Added Events in the UK</h1>
 
         <!-- Search Form -->
-        <form method="get" action="{% url 'new_events' %}" id="search-form">
-            <input type="text" name="location" placeholder="Search by location" value="{{ location_query }}" class="input-field">
-            <input type="text" name="q" placeholder="Search by band, show, etc." value="{{ search_query }}" class="input-field">
+        <form method="get" action="{% url 'new_events' %}" id="event-search-form">
+            <label for="search">Search by Location, Band Name, etc.:</label>
+            <input type="text" name="search" placeholder="Enter search term" value="{{ search_term }}" class="input-field">
             <button type="submit" class="search-button">Search</button>
         </form>
 
