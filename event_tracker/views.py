@@ -1,35 +1,32 @@
 from django.shortcuts import render
 from django.utils import timezone
-from datetime import timedelta
 from django.core.paginator import Paginator
+from datetime import timedelta
 from events.models import Event
 
 def new_events_view(request):
-    # Define a 7-day window for "new" events
+    # Set the "new events" window to 7 days
     seven_days_ago = timezone.now() - timedelta(days=7)
-
-    # Get the search term from the query string
-    search_term = request.GET.get('search', '').strip()
-
-    # Base queryset for events created within the last 7 days in the UK
+    
+    # Get search query parameters
+    search_query = request.GET.get('q', '')  # Keyword for band name, show, etc.
+    location_query = request.GET.get('location', '')  # Location filter
+    
+    # Filter events based on "new" status and optional search criteria
     events = Event.objects.filter(
-        location__country="UK",  # Assuming location has a country attribute
-        created_at__gte=seven_days_ago
+        created_at__gte=seven_days_ago,  # Only events added in the last 7 days
+        location__country="GB"  # Only events in the UK
     )
-
-    # Apply search filtering if a search term is provided
-    if search_term:
-        events = events.filter(
-            title__icontains=search_term
-        ) | events.filter(
-            location__city__icontains=search_term
-        ) | events.filter(
-            location__region__icontains=search_term
-        )
-
-    # Order by the most recently created events
+    
+    # Apply search filters if provided
+    if search_query:
+        events = events.filter(title__icontains=search_query)
+    if location_query:
+        events = events.filter(location__city__icontains=location_query)
+    
+    # Order by creation date to show the newest events first
     events = events.order_by('-created_at')
-
+    
     # Pagination
     paginator = Paginator(events, 12)  # Show 12 events per page
     page_number = request.GET.get('page')
@@ -38,5 +35,6 @@ def new_events_view(request):
     return render(request, 'event_tracker/new_events.html', {
         'page_obj': page_obj,
         'is_paginated': page_obj.has_other_pages(),
-        'search_term': search_term,
+        'search_query': search_query,
+        'location_query': location_query,
     })
