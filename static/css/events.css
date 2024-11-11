@@ -21,8 +21,8 @@ body {
 #event-search-form {
   display: flex;
   flex-direction: row;
-  /* justify-content: center;
-  flex-wrap: wrap; */
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
   max-width: 800px;
   margin: 0 auto 1rem auto;
@@ -39,6 +39,13 @@ body {
   border: 1px solid var(--grey-color);
   border-radius: 5px;
   width: 200px;
+}
+
+.date-field {
+  margin-top: -10px;
+  border: 1px solid var(--grey-color);
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .search-button, .sort-button {
@@ -156,6 +163,13 @@ body {
   .input-field {
     flex: 1;
     margin-top: -10px;
+  }
+
+  .date-field {
+    margin-top: -10px;
+    border: 1px solid var(--grey-color);
+    padding: 0.5rem;
+    border-radius: 5px;
   }
 
   .search-button {
