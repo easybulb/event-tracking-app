@@ -7,8 +7,16 @@
 
 {% block content %}
     <section id="event-section">
-        <h1 id="event-title">New Events at Co-op Live and O2 Manchester</h1>
+        <h1 id="event-title">New Events in the UK</h1>
 
+        <!-- Search Form -->
+        <form method="get" action="{% url 'new_events' %}" id="event-search-form">
+            <label for="search">Search by Location, Band Name, etc.:</label>
+            <input type="text" name="search" placeholder="Enter search term" value="{{ search_term }}" class="input-field">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <!-- Event List -->
         <ul id="event-list">
             {% for event in page_obj.object_list %}
                 <li class="event-item card">
@@ -22,6 +30,8 @@
                         <a href="{{ event.url }}" target="_blank" class="btn btn-primary">View Event</a>
                     </div>
                 </li>
+            {% empty %}
+                <p>No events found.</p>
             {% endfor %}
         </ul>
 
@@ -29,11 +39,11 @@
         {% if is_paginated %}
             <div class="pagination">
                 {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}" class="btn">Previous</a>
+                    <a href="?page={{ page_obj.previous_page_number }}&search={{ search_term }}" class="btn">Previous</a>
                 {% endif %}
                 <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}" class="btn">Next</a>
+                    <a href="?page={{ page_obj.next_page_number }}&search={{ search_term }}" class="btn">Next</a>
                 {% endif %}
             </div>
         {% endif %}

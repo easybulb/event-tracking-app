@@ -12,6 +12,35 @@
     margin-bottom: 1.5rem;
 }
 
+#event-search-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  #event-search-form label {
+    font-weight: bold;
+    color: var(--grey-color);
+  }
+  
+  .input-field {
+    padding: 0.5rem;
+    border: 1px solid var(--grey-color);
+    border-radius: 5px;
+  }
+  
+  .search-button {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+
 /* Event List Styling */
 #event-list {
     display: grid;
