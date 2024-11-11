@@ -86,6 +86,35 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Pagination Styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.pagination-link {
+  color: #fff;
+  background-color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.pagination-link:hover {
+  background-color: #0056b3; /* Slightly darker shade for hover effect */
+}
+
+.pagination-status {
+  font-size: 1rem;
+  color: var(--grey-color);
+  font-weight: bold;
+}
+
+
 @media (min-width: 1024px) {
   #event-list {
     grid-template-columns: repeat(3, 1fr);
@@ -116,24 +145,25 @@ body {
     align-items: flex-start;
   }
 
-  .form-label {
-    display: inline-block;
-    margin-right: 0.5rem;
-    width: auto;
+  .search-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
   }
 
   .input-field {
-    width: 100%;
-    max-width: 250px;
+    flex: 1;
   }
 
-  .search-button, .sort-button {
-    width: 100%;
-    max-width: 150px;
-    margin: 0.3rem auto;
+  .search-button {
+    padding: 0.4rem 0.8rem;
+    margin-left: 0.5rem;
+    width: auto;
   }
 
   #event-title {
     font-size: 1.8rem;
   }
 }
+
