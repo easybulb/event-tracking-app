@@ -5,19 +5,19 @@ from django.core.paginator import Paginator
 from events.models import Event
 
 def new_events_view(request):
-    # Set the "new events" window to 7 days
+    # Define a 7-day window for "new" events
     seven_days_ago = timezone.now() - timedelta(days=7)
-    
-    # Get search term from query parameters
+
+    # Get the search term from the query string
     search_term = request.GET.get('search', '').strip()
-    
-    # Base queryset for events added in the last 7 days in the UK
+
+    # Base queryset for events created within the last 7 days in the UK
     events = Event.objects.filter(
-        location__country="UK",
-        created_at__gte=seven_days_ago  # Only events added in the last 7 days
+        location__country="UK",  # Assuming location has a country attribute
+        created_at__gte=seven_days_ago
     )
-    
-    # Filter by search term if provided
+
+    # Apply search filtering if a search term is provided
     if search_term:
         events = events.filter(
             title__icontains=search_term
@@ -27,9 +27,9 @@ def new_events_view(request):
             location__region__icontains=search_term
         )
 
-    # Order by the most recently added events
+    # Order by the most recently created events
     events = events.order_by('-created_at')
-    
+
     # Pagination
     paginator = Paginator(events, 12)  # Show 12 events per page
     page_number = request.GET.get('page')
@@ -38,5 +38,5 @@ def new_events_view(request):
     return render(request, 'event_tracker/new_events.html', {
         'page_obj': page_obj,
         'is_paginated': page_obj.has_other_pages(),
-        'search_term': search_term,  # Pass the search term back to the template
+        'search_term': search_term,
     })
