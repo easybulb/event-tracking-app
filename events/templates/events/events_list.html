@@ -10,18 +10,21 @@
         <h1 id="event-title">Discover Events Near You</h1>
 
         <!-- Search by Anything -->
-        <form method="get" action="{% url 'fetch_events' %}" id="anything-search-form">
-            <label for="anything">Search by Anything (Location, Artist, Event):</label><br>
-            <input type="text" name="anything" placeholder="Enter location, artist, event, etc." value="{{ anything_query }}" class="input-field">
-            <button type="submit" class="search-button">Search</button>
+        <form method="get" action="{% url 'fetch_events' %}" id="event-search-form">
+            <label for="anything">Search by Location, Artist, Event:</label>
+            <div class="search-group">
+                <input type="text" name="anything" placeholder="Enter location, artist, event, etc." value="{{ anything_query }}" class="input-field">
+                <button type="submit" class="search-button">Search</button>
+            </div>
         </form>
-        <br>
 
         <!-- Search by Date -->
-        <form method="get" action="{% url 'fetch_events' %}" id="date-search-form">
-            <label for="date">Search by Date:</label><br>
-            <input type="date" name="date" value="{{ date_filter }}" class="input-field">
-            <button type="submit" class="search-button">Search</button>
+        <form method="get" action="{% url 'fetch_events' %}" id="event-search-form">
+            <label for="date">Search by Date:</label>
+            <div class="search-group">
+                <input type="date" name="date" value="{{ date_filter }}" class="input-field">
+                <button type="submit" class="search-button">Search</button>
+            </div>
         </form>
 
         <ul id="event-list">
@@ -30,7 +33,7 @@
                     <h2 class="event-name">{{ event.name }}</h2>
                     <p class="event-datetime">📅 {{ event.date }} | 🕒 {{ event.time }}</p>
                     <p class="event-venue">📍 {{ event.venue }}</p>
-                    <p class="event-location">🗺️ {{ event.location }}</p>  <!-- Full address or location -->
+                    <p class="event-location">🗺️ {{ event.location }}</p> <!-- Full address or location -->
 
                     <div class="details">
                         {% if event.price %}
@@ -53,7 +56,7 @@
                 <a href="?page={{ previous_page }}&anything={{ anything_query }}&date={{ date_filter }}" class="pagination-link">Previous</a>
             {% endif %}
 
-            <span class="pagination-status">Page {{ current_page }} </span>
+            <span class="pagination-status">Page {{ current_page }} of {{ total_pages }}</span>
 
             {% if next_page %}
                 <a href="?page={{ next_page }}&anything={{ anything_query }}&date={{ date_filter }}" class="pagination-link">Next</a>

@@ -20,11 +20,12 @@ body {
 
 #event-search-form {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: row;
+  /* justify-content: center;
+  flex-wrap: wrap; */
   gap: 1rem;
   max-width: 800px;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 1rem auto;
   align-items: center;
 }
 
@@ -149,16 +150,18 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
   }
 
   .input-field {
     flex: 1;
+    margin-top: -10px;
   }
 
   .search-button {
     padding: 0.4rem 0.8rem;
     margin-left: 0.5rem;
+    margin-top: -10px;
     width: auto;
   }
 
