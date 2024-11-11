@@ -11,12 +11,11 @@ from .forms import ContactForm
 
 def home(request):
     # Fetching events from the API
-    city = "Manchester"  # Default city for featured events
     current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     
     url = (
         f"https://app.ticketmaster.com/discovery/v2/events.json?"
-        f"city={city}&countryCode=GB&startDateTime={current_time}&size=10"
+        f"countryCode=GB&startDateTime={current_time}&size=10"
         f"&apikey={os.getenv('TICKETMASTER_KEY')}"
     )
 
