@@ -24,9 +24,8 @@ class Event(models.Model):
     time = models.TimeField()
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    # New fields for URL and image
+    
+    # Fields for URL and image
     url = models.URLField(max_length=500, blank=True, null=True)
     image = models.URLField(max_length=500, blank=True, null=True)
     
@@ -35,10 +34,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
-
-# models.py
-from django.db import models
-
+# ContactMessage model for user messages
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -48,4 +44,3 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.name} - {self.subject}"
-
