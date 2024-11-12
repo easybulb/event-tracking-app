@@ -5,17 +5,17 @@ from datetime import timedelta
 from events.models import Event
 
 def new_events_view(request):
-    # Set the "new events" window to 7 days
+    # Set the "new events" window to events added in the last 7 days
     seven_days_ago = timezone.now() - timedelta(days=7)
     
-    # Get search query parameters
-    search_query = request.GET.get('q', '')  # Keyword for band name, show, etc.
-    location_query = request.GET.get('location', '')  # Location filter
+    # Get search query parameters for filtering
+    search_query = request.GET.get('q', '')  # For band name, show, etc.
+    location_query = request.GET.get('location', '')  # For location filter
     
-    # Filter events based on "new" status and optional search criteria
+    # Filter for events added in the last 7 days based on `created_at`
     events = Event.objects.filter(
-        created_at__gte=seven_days_ago,  # Only events added in the last 7 days
-        location__country="GB"  # Only events in the UK
+        created_at__gte=seven_days_ago,  # Events added in the last 7 days
+        location__country="GB"           # Only events in the UK
     )
     
     # Apply search filters if provided
@@ -24,7 +24,7 @@ def new_events_view(request):
     if location_query:
         events = events.filter(location__city__icontains=location_query)
     
-    # Order by creation date to show the newest events first
+    # Order events by creation date (recently added first)
     events = events.order_by('-created_at')
     
     # Pagination
