@@ -7,6 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}ShowsEcho{% endblock %}</title>
 
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="ShowsEcho - Discover the latest events, concerts, and shows across the UK. Search by location, artist, or date to find events near you.">
+  <meta name="keywords" content="events, concerts, shows, UK events, live events, ShowsEcho, concerts near me, event search">
+  <meta name="author" content="ShowsEcho">
+  
+  <!-- Open Graph / Facebook Meta Tags -->
+  <meta property="og:title" content="ShowsEcho - Discover Events Near You">
+  <meta property="og:description" content="Find and explore upcoming events across the UK with ShowsEcho. Your gateway to concerts, shows, and much more.">
+  <meta property="og:image" content="{% static 'https://res.cloudinary.com/dmqkc8now/image/upload/v1731429857/showsecho2_ulyqxc.png' %}">
+  <meta property="og:url" content="https://www.showsecho.com/">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ShowsEcho - Discover Events Near You">
+  <meta name="twitter:description" content="Find and explore upcoming events across the UK with ShowsEcho. Your gateway to concerts, shows, and much more.">
+  <meta name="twitter:image" content="{% static 'https://res.cloudinary.com/dmqkc8now/image/upload/v1731429857/showsecho2_ulyqxc.png' %}">
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../media/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../media/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../media/favicon/favicon-16x16.png">
+
   <!-- Link to main CSS file -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -18,8 +41,8 @@
   <!-- Navbar -->
   <div class="navbar">
     <div class="container flex">
-      <h1><a href="{% url 'home' %}" class="logo">ShowsEcho</a></h1>
-      <nav>
+      <h1><a href="{% url 'home' %}" class="logo" aria-label="ShowsEcho Homepage">ShowsEcho</a></h1>
+      <nav aria-label="Main navigation">
         <ul>
           <li><a href="{% url 'events_list' %}">Events</a></li>
           <li><a href="{% url 'new_events' %}">Latest</a></li>
@@ -32,14 +55,17 @@
 
   <!-- Confirmation Messages -->
   {% if messages %}
-    <div>
+    <div class="messages">
         {% for message in messages %}
             <p>{{ message }}</p>
         {% endfor %}
     </div>
   {% endif %}
 
-  {% block content %}{% endblock %}
+  <!-- Main Content Block -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
   <!-- Footer -->
   <footer class="footer bg-dark py-5">
@@ -48,7 +74,7 @@
         <h1><a href="{% url 'home' %}">ShowsEcho</a></h1>
         <p>&copy; <script>document.write(new Date().getFullYear());</script> ShowsEcho - All Rights Reserved</p>
       </div>
-      <nav>
+      <nav aria-label="Footer navigation">
         <ul>
           <li><a href="{% url 'home' %}">Home</a></li>
           <li><a href="{% url 'events_list' %}">Events</a></li>
@@ -57,10 +83,10 @@
         </ul>
       </nav>
       <div class="social">
-        <a href="#"><i class="fab fa-github fa-2x"></i></a>
-        <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
-        <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
-        <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+        <a href="https://github.com" aria-label="GitHub"><i class="fab fa-github fa-2x"></i></a>
+        <a href="https://facebook.com" aria-label="Facebook"><i class="fab fa-facebook fa-2x"></i></a>
+        <a href="https://instagram.com" aria-label="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
+        <a href="https://twitter.com" aria-label="Twitter"><i class="fab fa-twitter fa-2x"></i></a>
       </div>
     </div>
   </footer>
