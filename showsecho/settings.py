@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-from celery import Celery
-from celery.schedules import crontab
 
 if os.path.isfile("env.py"):
     import env 
@@ -161,14 +159,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Celery settings
-CELERY_BROKER_URL = os.getenv('UPSTASH_REDIS_URL') + "?ssl_cert_reqs=CERT_NONE"
-CELERY_RESULT_BACKEND = os.getenv('UPSTASH_REDIS_URL') + "?ssl_cert_reqs=CERT_NONE"
-
-CELERY_BEAT_SCHEDULE = {
-    'poll-ticketmaster-api': {
-        'task': 'event_tracker.tasks.poll_ticketmaster_api',
-        'schedule': crontab(minute='*/15'),  # Every 15 minutes
-    },
-}
