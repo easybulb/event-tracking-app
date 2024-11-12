@@ -46,33 +46,38 @@ def home(request):
 
 
 def fetch_events(request):
+    # Get search parameters from the request
     anything_query = request.GET.get('anything', '').strip()
     date_filter = request.GET.get('date', '').strip()
+    
+    # Set the default date to today only if no search parameters are provided
+    if not anything_query and not date_filter:
+        today = datetime.now().date()
+        date_filter = today.strftime('%Y-%m-%d')
+
     page = int(request.GET.get('page', 1))
 
-    # Base URL for Ticketmaster API
+    # Construct the base URL for the Ticketmaster API
     base_url = f"https://app.ticketmaster.com/discovery/v2/events.json?countryCode=GB&page={page}&apikey={os.getenv('TICKETMASTER_KEY')}"
 
-    # Construct URL based on the provided search input
+    # Build URL with search parameters
+    url = base_url
     if anything_query:
-        url = f"{base_url}&keyword={anything_query}"
-    elif date_filter:
+        url += f"&keyword={anything_query}"
+    if date_filter:
         parsed_date = parse_date(date_filter)
         if parsed_date:
             start_date_time = f"{parsed_date}T00:00:00Z"
             end_date_time = f"{parsed_date}T23:59:59Z"
-            url = f"{base_url}&startDateTime={start_date_time}&endDateTime={end_date_time}"
-        else:
-            url = base_url
-    else:
-        url = base_url
+            url += f"&startDateTime={start_date_time}&endDateTime={end_date_time}"
 
+    # Fetch data from Ticketmaster API
     response = requests.get(url)
-
     events = []
     next_page = None
     previous_page = None
     total_pages = 1  # Default to 1 if pagination is not available
+
     if response.status_code == 200:
         data = response.json().get('_embedded', {}).get('events', [])
         for event in data:
@@ -99,7 +104,8 @@ def fetch_events(request):
                 'image': event.get('images', [{}])[0].get('url'),
                 'url': event.get('url')
             })
-        
+
+        # Handle pagination
         pagination_info = response.json().get('page', {})
         total_pages = pagination_info.get('totalPages', 1)
         if page < total_pages:
@@ -117,7 +123,7 @@ def fetch_events(request):
         'current_page': page,
         'page_numbers': page_numbers,
         'anything_query': anything_query,
-        'date_filter': date_filter
+        'date_filter': date_filter  # Pass date_filter to maintain input field value
     })
     
 def about(request):
