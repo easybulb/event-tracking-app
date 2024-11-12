@@ -2,8 +2,8 @@
 
 ShowsEcho is an event-tracking platform designed to keep users updated on major events like concerts, sports, festivals, and more in their local area or across various cities. With ShowsEcho, users can explore upcoming shows, receive timely notifications, and plan their attendance with ease.
 
-Main Live Site: https://www.showsecho.com
-Heroku Live web app link: https://event-tracking-app-c8e70a2c25f8.herokuapp.com/
+Main Live Site: https://www.showsecho.com <br>
+Heroku Live web app link: https://event-tracking-app-c8e70a2c25f8.herokuapp.com/ <br>
 
 
 
