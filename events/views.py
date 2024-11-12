@@ -130,7 +130,8 @@ def about(request):
     return render(request, 'events/about.html')
 
 def contact(request):
-    return render(request, 'events/contact.html')
+    form = ContactForm()  # Initialize the form for the GET request
+    return render(request, 'events/contact.html', {'form': form})
 
 def send_message(request):
     if request.method == 'POST':

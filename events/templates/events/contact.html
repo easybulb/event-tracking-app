@@ -1,4 +1,3 @@
-<!-- contact.html -->
 {% extends "base.html" %}
 
 {% block title %}Contact - ShowsEcho{% endblock %}
@@ -14,25 +13,25 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
         
-        <div class="form-group">
+        <div class="form-group mb-3">
           {{ form.name.label_tag }}
           {{ form.name }}
           {{ form.name.errors }}
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
           {{ form.email.label_tag }}
           {{ form.email }}
           {{ form.email.errors }}
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
           {{ form.subject.label_tag }}
           {{ form.subject }}
           {{ form.subject.errors }}
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
           {{ form.message.label_tag }}
           {{ form.message }}
           {{ form.message.errors }}
