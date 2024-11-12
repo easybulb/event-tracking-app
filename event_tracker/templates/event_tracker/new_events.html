@@ -12,7 +12,8 @@
         <!-- Search Form -->
         <form method="get" action="{% url 'new_events' %}" id="event-search-form">
             <label for="search">Search by Location, Band Name, etc.:</label>
-            <input type="text" name="search" placeholder="Enter search term" value="{{ search_term }}" class="input-field">
+            <input type="text" name="q" placeholder="Enter search term" value="{{ search_query }}" class="input-field">
+            <input type="text" name="location" placeholder="Enter location" value="{{ location_query }}" class="input-field">
             <button type="submit" class="search-button">Search</button>
         </form>
 
