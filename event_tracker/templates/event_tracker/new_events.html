@@ -6,18 +6,19 @@
 {% endblock %}
 
 {% block content %}
-    <section id="event-section">
-        <h1 id="event-title">Newly Added Events in the UK</h1>
+<section id="event-section">
+    <h1 id="event-title">Newly Added Events in the UK</h1>
 
-        <!-- Search Form -->
-        <form method="get" action="{% url 'new_events' %}" id="event-search-form">
-            <label for="search">Search by Location, Band Name, etc.:</label>
-            <input type="text" name="q" placeholder="Enter search term" value="{{ search_query }}" class="input-field">
-            <input type="text" name="location" placeholder="Enter location" value="{{ location_query }}" class="input-field">
-            <button type="submit" class="search-button">Search</button>
-        </form>
+    <!-- Search Form -->
+    <form method="get" action="{% url 'new_events' %}" id="event-search-form">
+        <label for="search">Search by Location, Band Name, etc.:</label>
+        <input type="text" name="q" placeholder="Enter search term" value="{{ search_query }}" class="input-field">
+        <input type="text" name="location" placeholder="Enter location" value="{{ location_query }}" class="input-field">
+        <button type="submit" class="search-button">Search</button>
+    </form>
 
-        <ul id="event-list">
+    <ul id="event-list">
+        {% if page_obj.object_list %}
             {% for event in page_obj.object_list %}
                 <li class="event-item card">
                     <h2 class="event-name">{{ event.title }}</h2>
@@ -31,19 +32,22 @@
                     </div>
                 </li>
             {% endfor %}
-        </ul>
-
-        <!-- Pagination controls -->
-        {% if is_paginated %}
-            <div class="pagination">
-                {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}&q={{ search_query }}&location={{ location_query }}" class="btn">Previous</a>
-                {% endif %}
-                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}&q={{ search_query }}&location={{ location_query }}" class="btn">Next</a>
-                {% endif %}
-            </div>
+        {% else %}
+            <p>No new events found in the past 7 days.</p>
         {% endif %}
-    </section>
+    </ul>
+
+    <!-- Pagination controls -->
+    {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ search_query }}&location={{ location_query }}" class="btn">Previous</a>
+            {% endif %}
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&q={{ search_query }}&location={{ location_query }}" class="btn">Next</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
 {% endblock %}
